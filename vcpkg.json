@@ -1,0 +1,8 @@
+{
+  "dependencies": [
+    "entt",
+    "sdl3",
+    "sdl3-image",
+    "glm"
+  ]
+}
