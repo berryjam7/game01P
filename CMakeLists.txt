@@ -1,5 +1,4 @@
 ﻿# CMakeList.txt : CMake project for game01P, include source and define
-# project specific logic here.
 #
 cmake_minimum_required (VERSION 3.9)
 
@@ -11,25 +10,35 @@ endif()
 
 project ("game01P")
 
+# Recursively find all source and header files in the src directory.
+# CONFIGURE_DEPENDS ensures CMake re-runs if files are added or removed.
+file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS 
+    "src/*.cpp" 
+    "src/*.h"
+    "src/*.hpp"
+)
+
 # Add source to this project's executable.
-add_executable (game01P "src/game01P.cpp" "src/game01P.h")
+add_executable (game01P ${SRC_FILES})
+
+# Add the src directory as an include path #include "core/Game.h"
+target_include_directories(game01P PRIVATE "src")
 
 find_package(SDL3 CONFIG REQUIRED)
 find_package(EnTT CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 find_package(SDL3_image CONFIG REQUIRED)
+find_package(imgui CONFIG REQUIRED)
 
-target_link_libraries( ${PROJECT_NAME} 
+target_link_libraries( game01P 
 	PRIVATE 
 		SDL3::SDL3 
 		EnTT::EnTT
 		glm::glm
+		imgui::imgui
 		$<IF:$<TARGET_EXISTS:SDL3_image::SDL3_image-shared>,SDL3_image::SDL3_image-shared,SDL3_image::SDL3_image-static>
 )
 
-if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET game01P PROPERTY CXX_STANDARD 23)
-endif()
+set_property(TARGET game01P PROPERTY CXX_STANDARD 23)
 
 # TODO: Add tests and install targets if needed.
-
