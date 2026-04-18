@@ -1,4 +1,4 @@
-﻿# CMakeList.txt : CMake project for game01P, include source and define
+# CMakeList.txt : CMake project for game01P, include source and define
 #
 cmake_minimum_required (VERSION 3.9)
 
@@ -29,6 +29,12 @@ find_package(EnTT CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 find_package(SDL3_image CONFIG REQUIRED)
 find_package(imgui CONFIG REQUIRED)
+find_package(Tracy CONFIG REQUIRED)
+find_path(MINIAUDIO_INCLUDE_DIRS "miniaudio.h")
+find_package(SDL3_ttf CONFIG REQUIRED)
+find_package(spdlog CONFIG REQUIRED)
+
+target_include_directories(game01P PRIVATE ${MINIAUDIO_INCLUDE_DIRS})
 
 target_link_libraries( game01P 
 	PRIVATE 
@@ -37,8 +43,12 @@ target_link_libraries( game01P
 		glm::glm
 		imgui::imgui
 		$<IF:$<TARGET_EXISTS:SDL3_image::SDL3_image-shared>,SDL3_image::SDL3_image-shared,SDL3_image::SDL3_image-static>
+		Tracy::TracyClient
+		SDL3_ttf::SDL3_ttf
+		spdlog::spdlog
 )
 
 set_property(TARGET game01P PROPERTY CXX_STANDARD 23)
+
 
 # TODO: Add tests and install targets if needed.

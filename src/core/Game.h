@@ -9,7 +9,7 @@
 class FGame
 {
 public:
-	static FGame& getInstance();
+	FGame() = default;
 
 	// prevent multiple instance
 	FGame(const FGame&) = delete;
@@ -20,8 +20,6 @@ public:
 	void Shutdown();
 
 private:
-	FGame() = default;
-
 	void ProcessInput();
 	void Update(const float deltaTime);
 	void Render();

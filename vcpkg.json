@@ -1,9 +1,13 @@
 {
   "dependencies": [
     "entt",
+    "glm",
+    "imgui",
     "sdl3",
     "sdl3-image",
-    "glm",
-    "imgui"
+    "tracy",
+    "miniaudio",
+    "sdl3-ttf",
+    "spdlog"
   ]
 }

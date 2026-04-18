@@ -1,12 +1,7 @@
 #include "Game.h"
+#include "ResourceManager.h"
 
 #include <chrono>
-
-FGame& FGame::getInstance()
-{
-	static FGame instance;
-	return instance;
-}
 
 void FGame::Initialize()
 {
@@ -30,6 +25,10 @@ void FGame::Initialize()
 		return;
 	}
 	renderer = FRendererPtr(rawRenderer);
+
+	// Initialize managers in EnTT context
+	auto& resMgr = registry.ctx().emplace<FResourceManager>();
+	resMgr.Init(renderer.get());
 
 	bIsRunning = true;
 
