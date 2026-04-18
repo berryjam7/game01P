@@ -1,6 +1,6 @@
 # CMakeList.txt : CMake project for game01P, include source and define
 #
-cmake_minimum_required (VERSION 3.9)
+cmake_minimum_required (VERSION 3.10)
 
 # Enable Hot Reload for MSVC compilers if supported.
 if (POLICY CMP0141)
